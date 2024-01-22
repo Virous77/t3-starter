@@ -1,11 +1,19 @@
 import mongoose from "mongoose";
 
-export interface User extends mongoose.Document {
+export interface User {
   name: string;
   email: string;
   password: string;
   isAdmin: boolean;
 }
+
+export interface MongoUser extends User, mongoose.Document {}
+
+export type TUser = User & {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
 const UserSchema = new mongoose.Schema<User>({
   name: {
