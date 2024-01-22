@@ -1,15 +1,17 @@
-import Extra from "@/components/query";
-import { serverClient } from "@/trpc-client/server-client";
+import dbConnect from "@/db/mongoose";
+import userModel from "@/models/user-model";
+
+export const findUser = async () => {
+  await dbConnect();
+  const user = await userModel.find();
+  return user;
+};
 
 const Page = async () => {
-  const user = await serverClient.greet({ message: "hello" });
+  const user = await findUser();
   console.log("yes", user);
 
-  return (
-    <div>
-      <Extra />
-    </div>
-  );
+  return <div>Hello Mongoose</div>;
 };
 
 export default Page;
