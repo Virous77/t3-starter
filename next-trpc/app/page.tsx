@@ -1,12 +1,15 @@
-import Extra from "@/components/query";
-import { serverClient } from "@/trpc-client/server-client";
+import AuthButton from "@/components/auth-button";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/_options";
 
 const Page = async () => {
-  const user = await serverClient.greet({ message: "hello" });
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
 
+  console.log(user);
   return (
     <div>
-      <Extra />
+      <AuthButton />
     </div>
   );
 };
